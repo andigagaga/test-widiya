@@ -1,5 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { Product } from "./Product";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 export enum Gender {
   MALE = "male",

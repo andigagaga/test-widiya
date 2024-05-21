@@ -6,14 +6,26 @@ import { User } from "../entity/User";
 
 export class ProductServices {
   private productRepository = AppDataSource.getRepository(Product);
+  private userRepository = AppDataSource.getRepository(User);
 
   constructor() {
     this.productRepository = AppDataSource.getRepository(Product);
+    this.userRepository = AppDataSource.getRepository(User);
   }
 
-  async createProduct(productData: Partial<Product>): Promise<Product> {
+  async createProduct(
+    productData: Partial<Product>,
+    userId: number
+  ): Promise<Product> {
     try {
-      const product = this.productRepository.create(productData);
+      const user = await this.productRepository.findOneBy({ id: userId });
+      if (!user) throw new Error("User not found");
+
+      const product = this.productRepository.create({
+        ...productData,
+        user: user, // Set relasi user
+        user_id: user.id, // Isi user_id dengan ID pengguna
+      });
       await this.productRepository.save(product);
       return product;
     } catch (error) {
@@ -68,6 +80,57 @@ export class ProductServices {
       });
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  async getProductByUser(id: number): Promise<Product[]> {
+    try {
+      const product = await this.productRepository.find({
+        where: { user_id: id },
+      });
+
+      return product;
+    } catch (error) {}
+  }
+
+  async updateProductByUser(
+    productId: number,
+    productData: Partial<Product>,
+    userId: number
+  ): Promise<Product | null> {
+    try {
+      const product = await this.getProductById(productId);
+      if (!product) {
+        throw new Error("Product not found");
+      }
+
+      if (product.user_id !== userId) {
+        throw new Error("You are not authorized to update this product");
+      }
+
+      await this.productRepository.update(productId, productData);
+      return await this.getProductById(productId);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async deleteProductByUser(productId: number, userId: number) {
+    try {
+      const product = await this.getProductById(productId);
+      if (!product) {
+        throw new Error("Product not found");
+      }
+      if (product.user_id !== userId) {
+        throw new Error("You are not authorized to delete this product");
+      }
+
+      const result = await this.productRepository.delete(productId);
+      return result.affected > 0;
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
   }
 }

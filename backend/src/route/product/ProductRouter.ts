@@ -28,4 +28,19 @@ productRouter.delete("/deleteProduct/:id", (req, res) =>
 productRouter.get("/getNewProduct", (req, res) =>
   productController.getNewProduct(req, res)
 );
+
+productRouter.get("/getProductByUser/:id", (req, res) =>
+  productController.getProductByUser(req, res)
+);
+
+productRouter.put("/updateProductByUser/:id", authenticateToken, (req, res) =>
+  productController.updateProductByUser(req, res)
+);
+
+productRouter.delete(
+  "/deleteProductByUser/:id",
+  authenticateToken,
+  (req, res) => productController.deleteProductByUser(req, res)
+);
+
 export default productRouter;

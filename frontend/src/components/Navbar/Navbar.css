@@ -1,0 +1,25 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  padding: 16px 0px;
+  box-shadow: 0 1px 3px -2px black;
+  align-items: center;
+  background: blue;
+}
+.navbar-logo {
+  display: flex;
+  align-items: center;
+}
+.navbar-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 50px;
+  font-size: 20px;
+  font-weight: 500;
+}
+.nav-login-cart {
+  display: flex;
+  align-items: center;
+  gap: 45px;
+}

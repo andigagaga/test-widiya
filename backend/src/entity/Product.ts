@@ -25,6 +25,12 @@ export class Product {
   @Column()
   category: string;
 
+  @ManyToOne(() => User)
+  user: User;
+
+  @Column({ nullable: true })
+  user_id: number;
+
   @CreateDateColumn()
   created_at: Date;
 
