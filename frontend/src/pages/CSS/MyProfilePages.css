@@ -12,10 +12,11 @@
   margin-bottom: 20px;
 }
 .profile-container {
+  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 0px;
-  padding: 50px 100px;
+  padding: 50px 70px;
   border-radius: 10px;
   background: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);

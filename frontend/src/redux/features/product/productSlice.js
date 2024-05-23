@@ -27,8 +27,22 @@ export const getNewProducts = createAsyncThunk(
   }
 );
 
+export const getProductById = createAsyncThunk(
+  "products/getProductById",
+  async (productId) => {
+    try {
+      const response = await Api.get(`getProductById/${productId}`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
 const initialState = {
   products: [],
+  product: null, // Tambahkan state terpisah untuk produk yang diambil berdasarkan ID
   loading: false,
   error: null,
 };
@@ -58,6 +72,17 @@ export const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(getNewProducts.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(getProductById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(getProductById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.product = action.payload; // Simpan produk yang didapatkan ke state product
+      })
+      .addCase(getProductById.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

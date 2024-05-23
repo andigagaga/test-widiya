@@ -1,14 +1,15 @@
 import React from "react";
-import Navbar from "./components/Navbar/Navbar";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import AllProductsPages from "./pages/AllProductsPages";
-import LoginPages from "./pages/LoginPages";
+import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
-import RegisterPages from "./pages/RegisterPages";
+import MyProductByUser from "./components/MyProductByUser/MyProductByUser";
+import Navbar from "./components/Navbar/Navbar";
+import AllProductsPages from "./pages/AllProductsPages";
+import Home from "./pages/Home";
+import LoginPages from "./pages/LoginPages";
 import MyProfilePage from "./pages/MyProfilePages";
 import NewProductsPages from "./pages/NewProductsPages";
-import MyProductByUser from "./components/MyProductByUser/MyProductByUser";
+import ProductDetailPages from "./pages/ProductDetailPages";
+import RegisterPages from "./pages/RegisterPages";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
         <Route path="/registerUser" element={<RegisterPages />} />
         <Route path="/myProfile" element={<MyProfilePage />} />
         <Route path="/myProductByUser" element={<MyProductByUser />} />
+        <Route path="/getProductById/:id" element={<ProductDetailPages />} />
       </Routes>
       <Footer />
     </div>

@@ -29,7 +29,7 @@ export default function NewProductsComponent() {
           <div className="shopcategory-products">
             {products.map((product) => (
               <div className="item">
-                <img src=""></img>
+                <img src={product.image}></img>
                 <p
                   style={{
                     cursor: "pointer",

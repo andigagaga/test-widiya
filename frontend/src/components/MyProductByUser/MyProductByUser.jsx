@@ -41,19 +41,22 @@ export default function MyProductByUser() {
               .filter((product) => product.user_id === user.user.id)
               .map((product) => (
                 <div className="item" key={product.id}>
-                  <img src=""></img>
-                  <p
-                    style={{
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    {product.name}
-                  </p>
-                  <p>{product.description}</p>
-                  <div className="item-prices">
-                    <div className="item-price-new">{product.price}</div>
+                  <div>
+                    <img src={product.image}></img>
+                    <p
+                      style={{
+                        cursor: "pointer",
+                        textDecoration: "underline",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {product.name}
+                    </p>
+                    <p>{product.description}</p>
+                    <p className="item-price-new">{product.price}</p>
+                  </div>
+                  <div>
+                    <button className="item-button-delete">Delete</button>
                   </div>
                 </div>
               ))}

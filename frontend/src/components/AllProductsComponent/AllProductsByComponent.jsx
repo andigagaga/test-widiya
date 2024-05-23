@@ -5,6 +5,7 @@ import { Api } from "../../libs/axiosInstance";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../../redux/features/product/productSlice";
 import { getUserProfile } from "../../redux/features/auth/authSlice";
+import { Link } from "react-router-dom";
 
 export default function AllProductsByComponent() {
   const dispatch = useDispatch();
@@ -12,10 +13,9 @@ export default function AllProductsByComponent() {
   const { user, token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getProducts(), getUserProfile());
+    dispatch(getProducts());
+    dispatch(getUserProfile());
   }, [dispatch, token]);
-
-  console.log("productnya nih", products);
 
   return (
     <div>
@@ -32,9 +32,10 @@ export default function AllProductsByComponent() {
         {token ? (
           <div className="shopcategory-products">
             {products.map((product) => (
-              <div className="item">
-                <img src=""></img>
-                <p
+              <div className="item" key={product.id}>
+                <img src={product.image}></img>
+                <Link
+                  to={`/getProductById/${product.id}`}
                   style={{
                     cursor: "pointer",
                     textDecoration: "underline",
@@ -42,7 +43,7 @@ export default function AllProductsByComponent() {
                   }}
                 >
                   {product.name}
-                </p>
+                </Link>
                 <p>{product.description}</p>
                 <div className="item-prices">
                   <div className="item-price-new">{product.price}</div>
