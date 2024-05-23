@@ -1,10 +1,10 @@
 import React from "react";
-import AllProductsComponent from "../components/AllProductsComponent/AllProductsComponent";
+import AllProductsByComponent from "../components/AllProductsComponent/AllProductsByComponent";
 
 export default function AllProductsPages() {
   return (
     <div>
-      <AllProductsComponent />
+      <AllProductsByComponent />
     </div>
   );
 }

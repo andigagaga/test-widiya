@@ -9,7 +9,8 @@ export class UserController {
 
   async signup(req: Request, res: Response) {
     try {
-      const { name, email, password, gender } = req.body;
+      const { username, firstname, lastname, Hobby, email, password, gender } =
+        req.body;
       const existingUser = await this.userServices.findUserByEmail(email);
 
       if (existingUser) {
@@ -21,7 +22,10 @@ export class UserController {
 
       const hashedPassword = await bcrypt.hash(password, 10);
       const user = await this.userServices.createUser({
-        name,
+        username,
+        firstname,
+        lastname,
+        Hobby,
         email,
         password: hashedPassword,
         gender,
@@ -29,7 +33,7 @@ export class UserController {
 
       const token = jwt.sign({ user: { id: user.id } }, "secret_ecom");
 
-      res.json({ success: true, token });
+      res.json({ success: true, user, token });
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Error creating user" });

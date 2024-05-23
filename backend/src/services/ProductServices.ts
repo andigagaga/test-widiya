@@ -18,7 +18,7 @@ export class ProductServices {
     userId: number
   ): Promise<Product> {
     try {
-      const user = await this.productRepository.findOneBy({ id: userId });
+      const user = await this.userRepository.findOneBy({ id: userId });
       if (!user) throw new Error("User not found");
 
       const product = this.productRepository.create({
@@ -30,6 +30,7 @@ export class ProductServices {
       return product;
     } catch (error) {
       console.log(error);
+      throw error; // Tambahkan ini
     }
   }
 

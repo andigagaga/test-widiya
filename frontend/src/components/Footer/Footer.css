@@ -4,7 +4,8 @@
   flex-direction: column;
   align-items: center;
   gap: 50px;
-  margin-top: 150px;
+  padding-top: 100px;
+  background: #543310;
 }
 
 .footer-logo {
